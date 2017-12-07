@@ -1,0 +1,118 @@
+
+
+gem install rails --nod-rdoc --no-ri
+
+atom ~/.railsrc
+
+
+http://localhost:3000/rails/info/routes
+
+>>> atom ~/railsrc: (put the lines below inside railsrc)
+-T
+-d postgresql
+--skip-turbolinks
+**** bundle >>> run this command after this edition
+
+
+** When creating inside another git repository, it's needed to delete
+.git file, what will do it to use of the parente structure
+>>rails new will create git repo files
+
+1) rails new project_name
+   rails new project_name -T -d postgresql  (if need db - use Postgres as our database instead of the default one: SQLite)
+2) check if it will have a own git repo, if not, delete .git
+3) rails g model question title body:text
+4) rails db:migrate
+5) rails s  (runs the server)
+6)
+
+rails db:migrate
+rails g migration add_view_count_to_questions  view_count:integer
+
+
+>>> change gem file:
+gem 'faker', github: 'stympy/faker' (isoleted in general lines)
+
+
+gem 'pg'  (instead of sqlite3)
+gem 'pry'
+gem 'pry-doc'
+gem 'pry-rails'
+gem 'hirb'   >>>> format datas in table to be seen in pry
+**** after is needed to run bundle
+
+rails db:create
+rails db:migrate
+
+rails g migration add_like_count_to_question like_count:integer
+
+rails db:migrate:status  ----> see the order of files that is running and the order matters
+
+rails g migration remove_like_count_from_questions  like_count:integer
+rails db:migrate
+
+atom ~/.pryrc  (copied lines from steeve to show datas in table on pry)
+
+**** rails c ---> runs pry  (c = console)
+q = Question.new(title: "what is your name?", body: "I got curves")
+q.save
+Question.all ---> read all datas from db
+Question.first
+Question.last
+Question.find_by(id:1)
+Question.find_by_sql("Select * from question")
+Question.find(id:1)
+Question.where("id>1")
+Question.where("title ILIKE ?", "%what%")
+Question.where.not("body ILIKE ?", "%curve%").where("title ILIKE ?", "%how%")
+q.title
+q.id
+
+Question.order(created_at: :desc)
+Question.order(created_at: :desc).limit(1)
+Question.order(created_at: :desc).limit(2).offset(1)
+q.update(title: "was it a carrot?", body: "I'm thinking of a veggie")
+
+q.errors.full_messages  (helps to see what is wrong)
+ls Question (list all methods we can use with this class)
+
+q = Question.new
+q.save
+q.save!
+q.errors # this is a Hash of arrays that include errors messages: {:title => ["can't be blank"]}
+q.errors.full_messages # this will give an array of full messages: ["Title can't be blank"]
+
+>>> Faker  ---> populate db with some datas
+can use on pry
+used seeds.rb file to populate db
+rails db:seed
+
+
+>>> validates  ----> just run in the model
+on pry,
+  reaload!
+
+  q = Question.new title: "Yo, body 'There is a monkey in my yard"
+  [21] pry(main)> q.save
+     (0.3ms)  BEGIN
+    Question Exists (0.6ms)  SELECT  1 AS one FROM "questions" WHERE "questions"."title" = $1 LIMIT $2  [["title", "Yo, body 'There is a monkey in my yard"], ["LIMIT", 1]]
+     (0.3ms)  ROLLBACK
+  => false
+  [22] pry(main)> q.errors.full_messages
+  => ["Body can't be blank",
+   "Body is too short (minimum is 5 characters)",
+   "View count is not a number",
+   "Title should not have a monkey! ð\u009F\u0099\u0088"]
+
+
+   [3] pry(main)> q2 = Question.new({title: "a   "})
+
+
+#### callbacks
+http://api.rubyonrails.org/
+
+
+
+
+
+# bump
