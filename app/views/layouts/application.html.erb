@@ -9,6 +9,12 @@
   </head>
 
   <body>
+    <a href="/">Home</a>
+    |
+    <%= link_to 'About Us', about_path %>
+    |
+    <%= link_to 'Contact Us', contactus_path %>
+    <hr>
     <%= yield %>
   </body>
 </html>
