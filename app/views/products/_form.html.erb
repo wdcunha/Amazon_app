@@ -1,0 +1,40 @@
+<%# Partial templates are meant to be rendered inside other templates.
+    In rails, we prefix templates that are meant to be used as partials
+    with an `_`.
+%>
+
+<%# `form_for` is a helper method that expects you to give it an instance of a
+    model as its first argument. From that instance, `form_for` will automatically
+    pick the correct path to create appropriate `action`, fill in ids and classes
+    based on the model's name, fill in input fields values based on the columns
+    they represent, create for a new instance or editing and existing instance, etc.
+%>
+
+<%# `form_for` can determine if it should render a form as an edit or a new
+    based on whether or not the model instance passed in is `.persisted?`.
+    `.persisted?` is a method that returns true or false indicateing whether
+    or not an instance is saved to the database.
+%>
+
+<%= form_for @product do |form| %>
+  <% if @product.errors.present? %>
+    <p><%= @product.errors.full_messages.join(', ') %></p>
+  <% end %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <%= form.submit %>
+<% end %>
