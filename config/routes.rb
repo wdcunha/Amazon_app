@@ -1,6 +1,22 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # Admin related routes
+  namespace :admin do
+    # The `namespace` method takes a symbol as a first argument and a block
+    # as an argument. It will prefix all routes defined inside the block
+    # with the symbol given as a first argument.
+
+    # It will also expect to find the related controllers in a subdirectory
+    # named after the symbol (i.e. controllers/admin/...)
+
+    # As well, it will expect said controllers to be part of a module
+    # named after the symbol (i.e. Admin::DashboardController)
+    resources :dashboard, only: [:index]
+    get('/panel', { to: 'dashboard#panel' })
+
+  end
+
   # session related routes
   # different of answer, we have just one session per user
   #

@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :find_product
+  before_action :authenticate_user!, :find_product
+  before_action :find_review, :authorize_user!, only: [:destroy]
+
 
   def create
     @review = Review.new(review_params)
@@ -15,12 +16,17 @@ class ReviewsController < ApplicationController
     end
   end
 
+
   def destroy
     @review = Review.find params[:id]
     @review.destroy
     redirect_to product_path(@product)
   end
 
+  def hidden_review
+
+  end
+  
   private
   def review_params
     params.require(:review).permit(:body, :rating)
@@ -28,5 +34,17 @@ class ReviewsController < ApplicationController
 
   def find_product
     @product = Product.find params[:product_id]
+  end
+
+
+  def find_review
+    @review = Review.find params[:id]
+  end
+
+  def authorize_user!
+    unless can?(:manage, @review)
+      flash[:alert] = "Access Denied!"
+      redirect_to home_path
+    end
   end
 end
