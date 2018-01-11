@@ -1,6 +1,6 @@
 class Review < ApplicationRecord
-  belongs_to :product
   belongs_to :user
+  belongs_to :product
 
   #Validate that body is optional but the rating is required and must be a number between 1 and 5 inclusive
   validates :body, presence: true;
