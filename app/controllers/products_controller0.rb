@@ -1,17 +1,22 @@
 class ProductsController < ApplicationController
-  # before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   # before_action :find_product, only: [:show, :destroy]
-  # before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
-  def index
-    @products = Product.all.order(created_at: :desc)
-  end
-  #
   def new
     @product = Product.new
   end
-  #
+
+  def index
+    @liked = params[:liked]
+    if @liked
+      @products = current_user.liked_reviews
+    else
+      @products = Product.all.order(created_at: :desc)
+    end
+  end
+
   def create
     @product = Product.new product_params
     # @product.user_id = current_user
@@ -29,6 +34,9 @@ class ProductsController < ApplicationController
   def show
     @reviews = @product.reviews.order(created_at: :desc)
     @review = Review.new
+
+    @user_like = current_user.likes.find_by_review_id(@review)
+    @user_favourite = @product.favourites.find_by_user_id(current_user)
   end
 
   def edit

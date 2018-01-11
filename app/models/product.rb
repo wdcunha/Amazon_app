@@ -3,6 +3,10 @@ class Product < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
 
+  has_many :favourites, dependent: :destroy
+  has_many :users, through: :favourites
+  
+
   before_validation :capitalize_title
   validates :price, presence: true
   validates :price, numericality: {greater_than: 0}

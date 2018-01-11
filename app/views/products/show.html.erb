@@ -21,6 +21,11 @@
   %>
 <% end %>
 
+<% if @user_favourite %>
+  <%= link_to "Un-Favourite", favourite_path(@user_favourite), method: :delete %>
+<% else %>
+  <%= link_to "Favourite", product_favourites_path(@product), method: :post %>
+<% end %>
 
 <h2>Reviews</h2>
 
@@ -65,6 +70,13 @@
 
       </div>
     <% end %>
+    <% if @user_like %>
+      <%=link_to "Un-like", like_path(@user_like),method: :delete %>
+    <% else %>
+      
+    <% end %>
+    <%= pluralize(@review.likes.count, 'like') %>
+
 </div>
 
 

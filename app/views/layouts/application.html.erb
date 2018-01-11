@@ -15,6 +15,11 @@
     |
     <%= link_to 'New Product', new_product_path %>
     |
+    <% if user_signed_in? %>
+      <%= link_to 'Favourite Products',
+          products_path({favourited: true})%>
+    <% end %>
+    |
     <%= link_to 'About Us', about_path %>
     |
     <%= link_to 'Contact Us', contactus_path %>

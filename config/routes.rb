@@ -27,7 +27,10 @@ Rails.application.routes.draw do
 
  # Product related routes
  resources :products  do
-   resources :reviews, only: [:create, :destroy]
+   resources :reviews, only: [:create, :destroy] do
+     resources :likes, only: [:create, :destroy], shallow: true
+   end
+   resources :favourites, shallow: true, only: [:create, :destroy]
  end
 
   get('/', { to: 'home#home', as: :home })
