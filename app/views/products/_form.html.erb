@@ -36,5 +36,14 @@
     <%= form.text_field :price %>
   </div>
 
+  <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |box| %>
+    <div>
+      <p>
+        <span class='tag-checkbox'><%= box.check_box %></span>
+        <%= box.label %>
+      </p>
+    </div>
+  <% end %>
+
   <%= form.submit %>
 <% end %>

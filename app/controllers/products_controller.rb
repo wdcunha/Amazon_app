@@ -5,7 +5,12 @@ class ProductsController < ApplicationController
   before_action :authorize_user!, only: [:edit] #, :update, :destroy]
 
   def index
-    @products = Product.all.order(created_at: :desc)
+    @favourited = params[:favourited]
+    if @favourited
+      @products = current_user.favourited_products
+    else
+      @products = Product.all.order(created_at: :desc)
+    end
   end
   #
   def new
@@ -28,6 +33,7 @@ class ProductsController < ApplicationController
   def show
     @reviews = @product.reviews.order(created_at: :desc)
     @review = Review.new
+    @user_favourite = current_user.favourites.find_by_product_id(@product) if user_signed_in?
   end
 
   def edit
@@ -50,7 +56,7 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    params.require(:product).permit(:title, :description, :price)
+    params.require(:product).permit(:title, :description, :price, { tag_ids: [] })
   end
 
   def find_product

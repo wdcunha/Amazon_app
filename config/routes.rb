@@ -31,7 +31,9 @@ Rails.application.routes.draw do
      resources :likes, only: [:create, :destroy], shallow: true
    end
    resources :favourites, shallow: true, only: [:create, :destroy]
+   resources :tags, only: [:show], shallow: true
  end
+ resources :tags, only: [:index]
 
   get('/', { to: 'home#home', as: :home })
   get('/about', { to: 'about#about' })

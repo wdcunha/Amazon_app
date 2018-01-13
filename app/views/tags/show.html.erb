@@ -1,0 +1,6 @@
+<h3>Products per <%=@tag.name%></h3>
+
+<% @products.each do |product| %>
+  <%#<p><%= link_to product.title, product_path(product) %></p>
+  <p><%= link_to product.title, product %></p>
+<% end %>

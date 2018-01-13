@@ -69,6 +69,10 @@ products.each do |product|
   end
 end
 
+['Arts', 'Sports', 'News', 'Cats', 'Cartoons', 'Lifestyle', 'Tech'].each do |tag_name|
+  Tag.create(name: tag_name)
+end
+
 reviews = Review.all
 
 puts Cowsay.say("Create #{reviews.count} reviews", :ghostbusters)

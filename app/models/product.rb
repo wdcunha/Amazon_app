@@ -5,7 +5,10 @@ class Product < ApplicationRecord
 
   has_many :favourites, dependent: :destroy
   has_many :users, through: :favourites
-  
+
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
 
   before_validation :capitalize_title
   validates :price, presence: true

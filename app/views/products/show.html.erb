@@ -7,6 +7,13 @@
 <p><strong>Created At:</strong> <%= time_ago_in_words(@product.created_at) %> ago</p>
 <p><strong>Update At:</strong> <%= time_ago_in_words(@product.updated_at) %> ago</p>
 
+<%#<p><strong>Tags:</strong> <%= link_to @product.tags.map(&:name).join(', ') %></p>
+<p><strong>Tags:</strong>
+  <% @product.tags.each do |tag| %>
+    <%= link_to tag.name, tag %>
+  <% end %>
+</p>
+
 <% if can?(:manage, @product) %>
 
   <%= link_to 'Edit', edit_product_path(@product) %>
@@ -73,7 +80,7 @@
     <% if @user_like %>
       <%=link_to "Un-like", like_path(@user_like),method: :delete %>
     <% else %>
-      
+
     <% end %>
     <%= pluralize(@review.likes.count, 'like') %>
 
