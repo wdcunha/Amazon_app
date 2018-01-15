@@ -34,6 +34,8 @@
   <%= link_to "Favourite", product_favourites_path(@product), method: :post %>
 <% end %>
 
+
+
 <h2>Reviews</h2>
 
 
@@ -69,21 +71,21 @@
 
           <%= link_to(
             'Delete',
-            product_review_path(@product, review),
+            review_path(@product, review),
             data: {confirm: 'Are you sure?'},
             method: :delete
           ) %>
         <% end %>
+        <% if @user_like %>
+        <%=link_to "Un-like", like_path(@user_like),method: :delete %>
+        <% else %>
 
+        <% end %>
+        <%= pluralize(@review.likes.count, 'like') %>
+        <br>
+        <%= review_vote(current_user.votes.find_by_review_id(review.id), review).html_safe if user_signed_in? %>
       </div>
     <% end %>
-    <% if @user_like %>
-      <%=link_to "Un-like", like_path(@user_like),method: :delete %>
-    <% else %>
-
-    <% end %>
-    <%= pluralize(@review.likes.count, 'like') %>
-
 </div>
 
 

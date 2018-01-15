@@ -27,8 +27,10 @@ Rails.application.routes.draw do
 
  # Product related routes
  resources :products  do
-   resources :reviews, only: [:create, :destroy] do
+   # resources :reviews, shallow: true, only: [:create, :destroy] do
+   resources :reviews, shallow: true, only: [:create, :edit, :update, :destroy] do
      resources :likes, only: [:create, :destroy], shallow: true
+     resources :votes, only: [:create, :update, :destroy], shallow: true
    end
    resources :favourites, shallow: true, only: [:create, :destroy]
    resources :tags, only: [:show], shallow: true

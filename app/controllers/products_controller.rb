@@ -34,6 +34,7 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.order(created_at: :desc)
     @review = Review.new
     @user_favourite = current_user.favourites.find_by_product_id(@product) if user_signed_in?
+    # @user_vote = current_user.votes.find_by_review_id(@review) if user_signed_in?
   end
 
   def edit
