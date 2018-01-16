@@ -1,49 +1,50 @@
-<h2><%= @product.title %></h2>
+<main class="container">
+  <h2><%= @product.title %></h2>
 
-<p><%= @product.description %></p>
+  <p><%= @product.description %></p>
 
-<p>By <%= @product.user&.full_name || "[deleted]" %></p>
+  <p>By <%= @product.user&.full_name || "[deleted]" %></p>
 
-<p><strong>Created At:</strong> <%= time_ago_in_words(@product.created_at) %> ago</p>
-<p><strong>Update At:</strong> <%= time_ago_in_words(@product.updated_at) %> ago</p>
+  <p><strong>Created At:</strong> <%= time_ago_in_words(@product.created_at) %> ago</p>
+  <p><strong>Update At:</strong> <%= time_ago_in_words(@product.updated_at) %> ago</p>
 
-<%#<p><strong>Tags:</strong> <%= link_to @product.tags.map(&:name).join(', ') %></p>
-<p><strong>Tags:</strong>
-  <% @product.tags.each do |tag| %>
+  <%#<p><strong>Tags:</strong> <%= link_to @product.tags.map(&:name).join(', ') %></p>
+  <p><strong>Tags:</strong>
+    <% @product.tags.each do |tag| %>
     <%= link_to tag.name, tag %>
-  <% end %>
-</p>
+    <% end %>
+  </p>
 
-<% if can?(:manage, @product) %>
+  <% if can?(:crud, @product) %>
 
-  <%= link_to 'Edit', edit_product_path(@product) %>
+    <%= link_to 'Edit', edit_product_path(@product) %>
 
-  <%=
+    <%=
     link_to(
       'Delete',
       product_path(@product),
       method: :delete,
       data: {confirm: 'Are you sure?'}
     )
-  %>
-<% end %>
+    %>
+  <% end %>
 
-<% if @user_favourite %>
-  <%= link_to "Un-Favourite", favourite_path(@user_favourite), method: :delete %>
-<% else %>
-  <%= link_to "Favourite", product_favourites_path(@product), method: :post %>
-<% end %>
-
-
-
-<h2>Reviews</h2>
+  <% if @user_favourite %>
+    <%= link_to "Un-Favourite", favourite_path(@user_favourite), method: :delete %>
+  <% else %>
+    <%= link_to "Favourite", product_favourites_path(@product), method: :post %>
+  <% end %>
 
 
-<%= form_for [@product, @review] do |f| %>
+
+  <h2>Reviews</h2>
+
+
+  <%= form_for [@product, @review] do |f| %>
   <% if @review.errors.present? %>
-    <p>
-      <%= @review.errors.full_messages.join(', ') %>
-    </p>
+  <p>
+    <%= @review.errors.full_messages.join(', ') %>
+  </p>
   <% end %>
 
   <div>
@@ -55,38 +56,41 @@
   </div>
 
   <%= f.submit %>
-<% end %>
+  <% end %>
 
-<div class="review-list">
+  <div class="review-list">
     <% @reviews.each do |review| %>
-      <div class="review-list-item">
-        <p>Review: <%= review.body %></p>
-        <p>Rating: <%= review.rating %></p>
-        <p>By <%= @product.user&.full_name || "[deleted]" %></p>
-        <p>
-          <strong>Created At:</strong>
-          <%= time_ago_in_words(review.created_at) %> ago
-        </p>
-        <% if can?(:manage, @product) %>
-
-          <%= link_to(
-            'Delete',
-            review_path(@product, review),
-            data: {confirm: 'Are you sure?'},
-            method: :delete
-          ) %>
-        <% end %>
-        <% if @user_like %>
-        <%=link_to "Un-like", like_path(@user_like),method: :delete %>
-        <% else %>
-
-        <% end %>
-        <%= pluralize(@review.likes.count, 'like') %>
-        <br>
-        <%= review_vote(current_user.votes.find_by_review_id(review.id), review).html_safe if user_signed_in? %>
-      </div>
+    <div class="review-list-item">
+      <p>Review: <%= review.body %></p>
+      <p>Rating: <%= review.rating %></p>
+      <p>By <%= @product.user&.full_name || "[deleted]" %></p>
+      <p>
+        <strong>Created At:</strong>
+        <%= time_ago_in_words(review.created_at) %> ago
+      </p>
+      <% if can?(:crud, @product) %>
+        <%= link_to(
+        'Delete',
+        review_path(@product, review),
+        data: {confirm: 'Are you sure?'},
+        method: :delete
+        ) %>
+      <% end %>
+      <%# if @user_like %>
+      <% if current_user.likes.find_by_review_id(review) %>
+        <%=link_to "Un-like", like_path(review.likes.find_by_user_id(current_user)), method: :delete %>
+      <% else %>
+        <%=link_to "Like", review_likes_path(review), method: :post %>
+      <% end %>
+      <% likes_count = review.likes.length %>
+      <%= pluralize(likes_count, 'Person Like') %>
+      <br>
+      <%= review_vote(current_user.votes.find_by_review_id(review.id), review).html_safe if user_signed_in? %>
+    </div>
     <% end %>
-</div>
+  </div>
+
+</main>
 
 
 

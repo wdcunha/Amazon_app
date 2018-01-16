@@ -37,13 +37,28 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, :to => :crud
 
-    can :manage, Product do |product|
+    can :crud, Product do |product|
       user == product.user
     end
-    # Example usage testing this rule:
-    # can?(:manage, @product)
-    can :manage, Review do |review|
+
+    can :like, Review do |review|
+      review.user != user
+    end
+
+    can :crud, Like do |like|
+      like.user == user
+    end
+
+    can :crud, Review do |review|
       review.user == user
+    end
+
+    can :vote, Review do |review|
+      review.user != user
+    end
+
+    can :crud, Vote do |vote|
+      vote.user == user
     end
   end
 end
