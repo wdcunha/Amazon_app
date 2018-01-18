@@ -20,6 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem 'faraday'
 gem 'font-awesome-rails'
 
 # Use CoffeeScript for .coffee assets and views
@@ -34,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 gem 'bootstrap'
+gem 'active_model_serializers'
 
 gem 'cancancan'
 gem 'cowsay', '~> 0.3.0'
