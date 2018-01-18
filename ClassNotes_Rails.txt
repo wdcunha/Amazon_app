@@ -51,7 +51,7 @@ rails db:migrate:status  ----> see the order of files that is running and the or
 rails g migration remove_like_count_from_questions  like_count:integer
 rails db:migrate
 
-atom ~/.pryrc  (copied lines from steeve to show datas in table on pry)
+atom ~/.pryrc  (copied lines from steve to show datas in table on pry)
 
 **** rails c ---> runs pry  (c = console)
 q = Question.new(title: "what is your name?", body: "I got curves")

@@ -36,6 +36,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 gem 'bootstrap'
 gem 'active_model_serializers'
+gem 'rack-cors'
 
 gem 'cancancan'
 gem 'cowsay', '~> 0.3.0'
