@@ -41,6 +41,9 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product.slug = nil # this will force friendly_id to re-generate slug, if
+                     # we enabled the `history` option then the previous
+                     # will be stored history and will still work
     if @product.update(product_params)
       redirect_to product_path(@product)
     else
@@ -57,7 +60,7 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    params.require(:product).permit(:title, :description, :price, { tag_ids: [] })
+    params.require(:product).permit(:title, :description, :price, :image, { tag_ids: [] })
   end
 
   def find_product
@@ -76,3 +79,9 @@ class ProductsController < ApplicationController
     end
   end
 end
+
+
+
+
+
+# bump

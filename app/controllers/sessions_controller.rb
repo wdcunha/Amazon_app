@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     else
       # `flash.now` behaves differently than regular flash. The message will instead
       # only appear for the current request and not any further requests.
-      flash.now[:alert] = 'Wrong email or password!'
+      flash.now[:danger] = 'Wrong email or password!'
       render :new
     end
   end
@@ -23,10 +23,10 @@ class SessionsController < ApplicationController
     def destroy
       session[:user_id] = nil
       # When using `redirect_to` you can specify a flash message
-      # as argument such as `notice: 'Signed out!'` or `alert: 'Failed!'`
+      # as argument such as `notice: 'Signed out!'` or `danger: 'Failed!'`
       # That is equivalent to:
       # flash[:notice] = 'Signed out!'
-      # flash[:alert] = 'Failed!'
+      # flash[:danger] = 'Failed!'
       redirect_to home_path, notice: 'Signed Out!'
     end
 

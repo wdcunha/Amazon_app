@@ -11,6 +11,16 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_many :voted_reviews, through: :votes, source: :review
 
+
+  geocoded_by :address
+  after_validation :geocode
+
+
+  extend FriendlyId
+  # friendly_id :slug_candidates, use: [:slugged, :history, :finders]
+  friendly_id :full_name, use: [:slugged, :history, :finders]
+
+
   has_secure_password
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i

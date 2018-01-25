@@ -16,34 +16,57 @@
     or not an instance is saved to the database.
 %>
 
-<%= form_for @product do |form| %>
-  <% if @product.errors.present? %>
-    <p><%= @product.errors.full_messages.join(', ') %></p>
-  <% end %>
+<%= simple_form_for @product do |form| %>
+  <!-- <#% if @product.errors.present? %>
+    <p><%#= @product.errors.full_messages.join(', ') %></p>
+  <#% end %> > -->
 
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+   <!-- <div> -->
+    <%#= form.label :title %>
+    <%#= form.text_field :title %>
+  <!-- </div> > -->
+  <%= form.input :title %>
 
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+  <!-- <div> -->
+    <%#= form.label :description %>
+    <%#= form.text_area :description %>
+  <!-- </div> > -->
+  <%= form.input :description %>
 
-  <div>
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
+  <!-- <div> -->
+    <%#= form.label :price %>
+    <%#= form.text_field :price %>
+  <!-- </div>  -->
+  <%= form.input :price %>
+  
+  <%= form.input :image %>
 
-  <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |box| %>
+  <!-- <%#= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |box| %>
     <div>
       <p>
-        <span class='tag-checkbox'><%= box.check_box %></span>
-        <%= box.label %>
+        <span class='tagcheckbox'><%#= box.check_box multiple: true, class: 'chosenselect' %></span>
+        <%#= box.label %>
       </p>
     </div>
-  <% end %>
+  <#% end %> -->
 
-  <%= form.submit %>
+  <!-- <div>
+    <%#= form.label :tags %> <br />
+    <%#= form.collection_select(
+      :tag_ids,
+      Tag.order(:name),
+      :id,
+      :name,
+      {},
+      {
+        multiple: true,
+        class: 'chosenselect'
+      }
+    ) %>
+  </div> -->
+
+  <%= form.association :tags, input_html: { class: 'chosen-select tag-checkbox' }  %>
+
+  <%#= form.submit %>
+  <%= form.submit class: 'btn btn-primary' %>
 <% end %>

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   # User related routes
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show, :index]
 
  # Product related routes
  resources :products  do

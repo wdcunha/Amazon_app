@@ -11,7 +11,10 @@
 // about supported directives.
 //
 //= require jquery3
+//= require chosen-jquery
 //= require popper
 //= require bootstrap
 //= require rails-ujs
+//= require underscore
+//= require gmaps/google
 //= require_tree .

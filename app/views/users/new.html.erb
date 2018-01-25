@@ -1,34 +1,46 @@
 <main class="container">
   <h1>Sign Up</h1>
 
-  <%= form_for @user do |f| %>
-  <% if @user.errors.present? %>
+  <%= simple_form_for @user do |f| %>
+  <!-- <#% if @user.errors.present? %>
   <p>
-    <%= @user.errors.full_messages.join(', ') %>
+    <%#= @user.errors.full_messages.join(', ') %>
   </p>
-  <% end %>
+  <#% end %> -->
 
-  <div>
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
-  </div>
-  <div>
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
-  </div>
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <%= f.submit %>
-  <% end %>
+  <!-- <div>
+    <%#= f.label :first_name %>
+    <%#= f.text_field :first_name %>
+  </div> -->
+  <%= f.input :first_name %>
+
+  <!-- <div>
+    <%#= f.label :last_name %>
+    <%#= f.text_field :last_name %>
+  </div> -->
+  <%= f.input :last_name %>
+
+  <!-- <div>
+    <%#= f.label :email %>
+    <%#= f.email_field :email %>
+  </div> -->
+  <%= f.input :email %>
+
+  <%= f.input :address %>
+
+  <!-- <div>
+    <%#= f.label :password %>
+    <%#= f.password_field :password %>
+  </div> -->
+  <%= f.input :password %>
+
+  <!-- <div>
+    <%#= f.label :password_confirmation %>
+    <%#= f.password_field :password_confirmation %>
+  </div> -->
+  <%= f.input :password_confirmation %>
+
+  <%= f.submit class: 'btn btn-primary'%>
+<% end %>
 
 </main>

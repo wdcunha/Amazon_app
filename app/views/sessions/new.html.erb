@@ -1,14 +1,17 @@
 <h1>Sign In</h1>
 
-<%= form_for :session, url: session_path do |f| %>
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
+<%= simple_form_for :session, url: session_path do |f| %>
+  <!-- <div>
+    <%#= f.label :email %>
+    <%#= f.email_field :email %>
+  </div> -->
+  <%= f.input :email %>
 
-  <%= f.submit 'Submit' %>
+  <!-- <div>
+    <%#= f.label :password %>
+    <%#= f.password_field :password %>
+  </div> -->
+  <%= f.input :password %>
+
+  <%= f.submit class: 'btn btn-primary' %>
 <% end %>

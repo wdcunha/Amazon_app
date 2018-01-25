@@ -9,6 +9,18 @@ class Product < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
+  extend FriendlyId
+  # history: will store slug history in friendly_id_slugs table
+  # finders: will make it so we can use use Question.find as we did with normal
+  #          id so we don't need to change anything.
+  friendly_id :title, use: [:slugged, :history, :finders]
+
+  mount_uploader :image, ImageUploader
+
+  # if you want to user friendly_id gem, make sure to comment out to_param
+  # def to_param
+  #   "#{id}-#{title}".parameterize
+  # end
 
   before_validation :capitalize_title
   validates :price, presence: true

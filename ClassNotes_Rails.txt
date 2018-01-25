@@ -46,6 +46,8 @@ rails db:migrate
 
 rails g migration add_like_count_to_question like_count:integer
 
+rails g migration add_like_count_to_question like_count:integer
+
 rails db:migrate:status  ----> see the order of files that is running and the order matters
 
 rails g migration remove_like_count_from_questions  like_count:integer
