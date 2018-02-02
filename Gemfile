@@ -45,6 +45,8 @@ gem 'mini_magick'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
+gem 'jwt'
+gem 'webpacker', '~> 3.0.0'
 
 gem 'cancancan'
 gem 'cowsay', '~> 0.3.0'

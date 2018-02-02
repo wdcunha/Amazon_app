@@ -1,4 +1,5 @@
-class Api::V1::ProductsController < ApplicationController
+class Api::V1::ProductsController < Api::ApplicationController
+before_action :authenticate_user!
 before_action :find_product, only: [:show, :destroy]
 
   def show
